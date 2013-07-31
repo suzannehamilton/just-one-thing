@@ -12,9 +12,9 @@
   <div class="row-fluid">
     <div class="span2">
       <ul class="nav nav-tabs nav-stacked">
-        <li>Home</li>
-        <li>New task</li>
-        <li>All tasks</li>
+        <li><%= link_to "Home", controller: "welcome" %></li>
+        <li><%= link_to "New task", controller: "tasks", action: "new" %></li>
+        <li><%= link_to "All tasks", controller: "tasks" %></li>
       </ul>
     </div>
 
