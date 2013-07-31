@@ -4,6 +4,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.completed = false
 
     @task.save
     redirect_to action: :new, :notice => "New task created"
