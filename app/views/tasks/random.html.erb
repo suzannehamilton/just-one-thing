@@ -4,3 +4,16 @@
 
 
 <%= link_to "Completed", complete_path(@task), method: :post, class: "btn btn-success" %>
+
+<h3>Or... what's the first thing you need to do to complete this task?</h3>
+
+<%= form_for :child_task, url: create_child_path(@task) do |f| %>
+  <p>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

@@ -20,6 +20,7 @@ JustOneThing::Application.routes.draw do
   end
 
   post 'tasks/:id/complete' => 'tasks#complete', as: :complete
+  post 'tasks/:id/create_child' => 'tasks#create_child', as: :create_child
 
   # Example resource route with options:
   #   resources :products do

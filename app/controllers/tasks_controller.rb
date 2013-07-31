@@ -10,6 +10,16 @@ class TasksController < ApplicationController
     redirect_to action: :new, :notice => "New task created"
   end
 
+  def create_child
+    @parent = Task.find(params[:id])
+    @child = Task.new(child_task_params)
+    @child.parent_id = @parent
+    @child.completed = false
+
+    @child.save
+    redirect_to action: :new, :notice => "New child task created"
+  end
+
   def index
     @tasks = Task.all
   end
@@ -29,6 +39,10 @@ class TasksController < ApplicationController
 
   private
     def task_params
-      params.require(:task).permit(:title)
+      params.require(:task).permit(:title, :parent_id)
+    end
+
+    def child_task_params
+      params.require(:child_task).permit(:title)
     end
 end
