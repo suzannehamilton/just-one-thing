@@ -6,7 +6,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
 
     @task.save
-    redirect_to @task
+    redirect_to action: :new, :notice => "New task created"
   end
 
   private
