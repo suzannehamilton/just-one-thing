@@ -19,6 +19,8 @@ JustOneThing::Application.routes.draw do
     end
   end
 
+  post 'tasks/:id/complete' => 'tasks#complete', as: :complete
+
   # Example resource route with options:
   #   resources :products do
   #     member do

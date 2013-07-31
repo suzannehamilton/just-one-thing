@@ -17,6 +17,13 @@ class TasksController < ApplicationController
     @task = Task.offset(rand(Task.count)).first
   end
 
+  def complete
+    @task = Task.find(params[:id])
+    @task.update_attributes(:completed => true)
+
+    redirect_to controller: :welcome, :notice => "Task completed"
+  end
+
   private
     def task_params
       params.require(:task).permit(:title)
