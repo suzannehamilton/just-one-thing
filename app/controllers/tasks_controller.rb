@@ -13,6 +13,10 @@ class TasksController < ApplicationController
     @tasks = Task.all
   end
 
+  def random
+    @task = Task.offset(rand(Task.count)).first
+  end
+
   private
     def task_params
       params.require(:task).permit(:title)
