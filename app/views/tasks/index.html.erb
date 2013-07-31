@@ -3,5 +3,10 @@
 <ul id="tasks">
   <% @tasks.each do |task| %>
     <li class="<%= 'complete' if task.completed %>"><%= task.title %></li>
+    <ul>
+      <% task.children.each do |child| %>
+        <li class="<%= 'complete' if child.completed %>"><%= child.title %></li>
+      <% end %>
+    </ul>
   <% end %>
 </ul>
