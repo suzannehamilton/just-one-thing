@@ -1,13 +1,8 @@
-<ul id="tasks">
-  <% if tasks.any? %>
-
+<% if tasks.any? %>
+  <ul class="tasks">
     <% tasks.each do |task| %>
       <li class="<%= 'complete' if task.completed %>"><%= task.title %></li>
-      <ul>
-        <% task.children.each do |child| %>
-          <li class="<%= 'complete' if child.completed %>"><%= child.title %></li>
-        <% end %>
-      </ul>
+      <%= render 'tasks', :tasks => task.children %>
     <% end %>
-  <% end %>
-</ul>
+  </ul>
+<% end %>

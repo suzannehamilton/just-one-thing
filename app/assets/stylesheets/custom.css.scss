@@ -2,7 +2,7 @@
 
 $greyed-out: #848484;
 
-#tasks li.complete {
+.tasks li.complete {
   color: $greyed-out;
   text-decoration: line-through;
 }
