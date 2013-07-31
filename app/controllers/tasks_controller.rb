@@ -13,7 +13,7 @@ class TasksController < ApplicationController
   def create_child
     @parent = Task.find(params[:id])
     @child = Task.new(child_task_params)
-    @child.parent_id = @parent
+    @child.parent_id = @parent.id
     @child.completed = false
 
     @child.save
@@ -21,7 +21,7 @@ class TasksController < ApplicationController
   end
 
   def index
-    @tasks = Task.all
+    @tasks = Task.all.select {|t| t.parent_id == nil }
   end
 
   def random
