@@ -9,6 +9,10 @@ class TasksController < ApplicationController
     redirect_to action: :new, :notice => "New task created"
   end
 
+  def index
+    @tasks = Task.all
+  end
+
   private
     def task_params
       params.require(:task).permit(:title)
