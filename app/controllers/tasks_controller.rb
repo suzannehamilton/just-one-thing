@@ -14,7 +14,9 @@ class TasksController < ApplicationController
   end
 
   def random
-    @task = Task.offset(rand(Task.count)).first
+    tasks = Task.find(:all, :conditions => {:completed => false})
+    puts tasks.length
+    @task = tasks.sample
   end
 
   def complete
