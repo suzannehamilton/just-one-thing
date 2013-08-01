@@ -4,8 +4,6 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    @task.completed = false
-
     @task.save
     redirect_to action: :new, :notice => "New task created"
   end
@@ -14,7 +12,6 @@ class TasksController < ApplicationController
     @parent = Task.find(params[:id])
     @child = Task.new(child_task_params)
     @child.parent_id = @parent.id
-    @child.completed = false
 
     @child.save
     redirect_to action: :new, :notice => "New child task created"
