@@ -45,24 +45,27 @@ class TasksControllerTest < ActionController::TestCase
   end
 
   test "complete action marks task as complete" do
-    task = Task.new
-    task.title = "Task to be completed"
-    task.save
+    task = create_new_task
 
     post :complete, id: task.id
-
     task.reload
 
     assert task.completed
   end
 
   test "complete action redirects to home page" do
-    task = Task.new
-    task.title = "Task to be completed"
-    task.save
+    task = create_new_task
 
     post :complete, id: task.id
 
     assert_redirected_to :controller => "welcome", :action => "index", :notice => "Task completed"
   end
+
+  private
+    def create_new_task
+      task = Task.new
+      task.title = "Task to be completed"
+      task.save
+      task
+    end 
 end
