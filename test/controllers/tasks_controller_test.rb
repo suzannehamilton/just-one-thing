@@ -28,4 +28,9 @@ class TasksControllerTest < ActionController::TestCase
       post :create_child, child_task: {title: 'Test title'}, id: tasks(:parent).id
     end
   end
+
+  test "create_child should redirect to new task page" do
+    post :create_child, child_task: {title: 'Test title'}, id: tasks(:parent).id
+    assert_redirected_to :controller => "tasks", :action => "new", :notice => "New child task created"
+  end
 end
