@@ -37,6 +37,8 @@ class TasksControllerTest < ActionController::TestCase
   test "random task fetches uncompleted task" do
     get :random
     assert_response :success
-    assert_not_nil assigns(:task)
+    task = assigns(:task)
+    assert_not_nil task
+    refute task.completed
   end
 end
