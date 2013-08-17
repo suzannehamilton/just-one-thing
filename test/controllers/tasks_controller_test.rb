@@ -55,7 +55,7 @@ class TasksControllerTest < ActionController::TestCase
       task = assigns(:task)
       assert_not_nil task, "Task is nil"
       # refute task.completed, "Task '#{task.title}' with id #{task.id} was loaded even though it is completed"
-      assert_equal 2, task.children.size, "Task '#{task.title}' with id #{task.id} was loaded even though it has #{task.children.size} children"
+      assert_equal 0, task.children.size, "Task '#{task.title}' with id #{task.id} was loaded even though it has #{task.children.size} children"
     end
   end
 
