@@ -3,4 +3,6 @@ class Task < ActiveRecord::Base
   has_many :children, class_name: 'Task', foreign_key: 'parent_id'
 
   validates :title, presence: true
+
+  scope :without_children, joins(:children)
 end
