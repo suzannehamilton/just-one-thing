@@ -23,9 +23,7 @@ class TasksController < ApplicationController
   end
 
   def random
-    # tasks = Task.all.select {|t| {:conditions => [t.completed == false, t.title == "foo"] } }
     tasks = Task.without_children.where(:completed => false)
-    # tasks = Task.where(:completed => false, :children => nil)
     @task = tasks.sample
   end
 
