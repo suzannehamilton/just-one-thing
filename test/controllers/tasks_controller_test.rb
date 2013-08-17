@@ -43,4 +43,26 @@ class TasksControllerTest < ActionController::TestCase
       refute task.completed, "Task '#{task.title}' with id #{task.id} was loaded even though it is completed"
     end
   end
+
+  test "complete action marks task as complete" do
+    task = Task.new
+    task.title = "Task to be completed"
+    task.save
+
+    post :complete, id: task.id
+
+    task.reload
+
+    assert task.completed
+  end
+
+  test "complete action redirects to home page" do
+    task = Task.new
+    task.title = "Task to be completed"
+    task.save
+
+    post :complete, id: task.id
+
+    assert_redirected_to :controller => "welcome", :action => "index", :notice => "Task completed"
+  end
 end
