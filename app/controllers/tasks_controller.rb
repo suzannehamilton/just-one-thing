@@ -23,7 +23,7 @@ class TasksController < ApplicationController
   end
 
   def random
-    tasks = Task.all(:conditions => {:completed => false})
+    tasks = Task.where(:completed => false)
     @task = tasks.sample
   end
 
