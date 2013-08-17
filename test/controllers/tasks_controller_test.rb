@@ -7,6 +7,14 @@ class TasksControllerTest < ActionController::TestCase
     assert_not_nil assigns(:tasks)
   end
 
+  test "index should get sub-tasks under tasks" do
+    get :index
+
+    listed_tasks = assigns(:tasks)    
+    assert listed_tasks.include?(tasks(:parent))
+    assert listed_tasks.include?(tasks(:completedTask))
+  end
+
   test "new should be a valid page" do
     get :new
     assert_response :success
