@@ -17,4 +17,10 @@ class TasksControllerTest < ActionController::TestCase
       post :create, task: {title: 'Test title'}
     end
   end
+
+  test "create should redirect to page for creating a new task" do
+    post :create, task: {title: 'Test title'}
+
+    assert_redirected_to :controller => "tasks", :action => "new", :notice => "New task created"
+  end
 end
