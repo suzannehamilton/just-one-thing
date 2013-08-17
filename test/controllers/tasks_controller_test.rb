@@ -11,4 +11,10 @@ class TasksControllerTest < ActionController::TestCase
     get :new
     assert_response :success
   end
+
+  test "create should create a new task" do
+    assert_difference('Task.count') do
+      post :create, task: {title: 'Test title'}
+    end
+  end
 end
