@@ -20,7 +20,16 @@ class TasksControllerTest < ActionController::TestCase
 
   test "create should redirect to page for creating a new task" do
     post :create, task: {title: 'Test title'}
-
     assert_redirected_to :controller => "tasks", :action => "new", :notice => "New task created"
+  end
+
+  test "create_child should create a new sub-task" do
+    parent = Task.new
+    parent.title = "Parent task"
+    parent.save
+
+    assert_difference('Task.count') do
+      post :create_child, child_task: {title: 'Test title'}, id: parent.id
+    end
   end
 end

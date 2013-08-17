@@ -3,7 +3,13 @@ require 'test_helper'
 class TaskTest < ActiveSupport::TestCase
   test "should not save task without title" do
     task = Task.new
-    assert !task.save, "Saved the task without a title"
+    refute task.save, "Saved the task without a title"
+  end
+
+  test "should save task with a title" do
+    task = Task.new
+    task.title = "Test title"
+    assert task.save, "Did not save task"
   end
 
   test "task should be uncompleted by default" do

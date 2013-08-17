@@ -14,6 +14,7 @@ class TasksController < ApplicationController
     @child.parent_id = @parent.id
 
     @child.save
+
     redirect_to action: :new, :notice => "New child task created"
   end
 
@@ -36,7 +37,7 @@ class TasksController < ApplicationController
 
   private
     def task_params
-      params.require(:task).permit(:title, :parent_id)
+      params.require(:task).permit(:title)
     end
 
     def child_task_params
