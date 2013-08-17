@@ -24,7 +24,6 @@ class TasksController < ApplicationController
 
   def random
     tasks = Task.find(:all, :conditions => {:completed => false})
-    puts tasks.length
     @task = tasks.sample
   end
 

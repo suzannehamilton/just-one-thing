@@ -35,10 +35,12 @@ class TasksControllerTest < ActionController::TestCase
   end
 
   test "random task fetches uncompleted task" do
-    get :random
-    assert_response :success
-    task = assigns(:task)
-    assert_not_nil task
-    refute task.completed
+    for random_task in 0..100
+      get :random
+      assert_response :success
+      task = assigns(:task)
+      assert_not_nil task, "Task is nil"
+      refute task.completed, "Task '#{task.title}' with id #{task.id} was loaded even though it is completed"
+    end
   end
 end
