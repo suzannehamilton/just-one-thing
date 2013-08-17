@@ -24,12 +24,8 @@ class TasksControllerTest < ActionController::TestCase
   end
 
   test "create_child should create a new sub-task" do
-    parent = Task.new
-    parent.title = "Parent task"
-    parent.save
-
     assert_difference('Task.count') do
-      post :create_child, child_task: {title: 'Test title'}, id: parent.id
+      post :create_child, child_task: {title: 'Test title'}, id: tasks(:parent).id
     end
   end
 end
