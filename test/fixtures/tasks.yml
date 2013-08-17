@@ -1,2 +1,15 @@
 parent:
-  title: "Parent task"
+  title: Parent task
+
+subtask:
+  title: Sub-task
+  parent: parent
+
+completedTask:
+  title: Completed parent task
+  completed: true
+
+completedSubTask:
+  title: Completed sub-task
+  completed: true
+  parent: parent

@@ -33,4 +33,10 @@ class TasksControllerTest < ActionController::TestCase
     post :create_child, child_task: {title: 'Test title'}, id: tasks(:parent).id
     assert_redirected_to :controller => "tasks", :action => "new", :notice => "New child task created"
   end
+
+  test "random task fetches uncompleted task" do
+    get :random
+    assert_response :success
+    assert_not_nil assigns(:task)
+  end
 end
