@@ -13,6 +13,12 @@ class TasksControllerTest < ActionController::TestCase
     listed_tasks = assigns(:tasks)    
     assert listed_tasks.include?(tasks(:parent))
     assert listed_tasks.include?(tasks(:completedTask))
+
+    parentTask = listed_tasks.detect { |t| t.id == tasks(:parent).id }
+    completedTask = listed_tasks.detect { |t| t.id == tasks(:completedTask).id }
+
+    assert_equal tasks(:parent).children.size, parentTask.children.size
+    assert_equal tasks(:completedTask).children.size, completedTask.children.size
   end
 
   test "new should be a valid page" do
