@@ -59,6 +59,13 @@ class TasksControllerTest < ActionController::TestCase
     end
   end
 
+  test "random task should return parent if sub-task is completed" do
+    tasks(:subtask).completed = true
+    tasks(:subtask).save
+    get :random
+    assert_response :success
+  end
+
   test "complete action marks task as complete" do
     task = create_new_task
 
