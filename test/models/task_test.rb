@@ -67,6 +67,22 @@ class TaskTest < ActiveSupport::TestCase
     assert_equal grandchild, task.next_step
   end
 
+  test "next step of task with child hierarchy returns last uncompleted child" do
+    task = create_task
+    child = create_child task
+    grandchild = create_completed_child child
+
+    assert_equal child, task.next_step
+  end
+
+  test "last_uncompleted_child finds last child which is uncompleted" do
+    task = create_task
+    first_child = create_child task
+    second_child = create_completed_child task
+
+    assert_equal first_child, task.last_uncompleted_child
+  end
+
   def create_task
     task = Task.new
     task.title = "Test task"
@@ -85,5 +101,7 @@ class TaskTest < ActiveSupport::TestCase
   def create_completed_child parent
     child = create_child parent
     child.completed = true
+    child.save
+    return child
   end
 end

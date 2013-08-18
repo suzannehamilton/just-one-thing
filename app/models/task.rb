@@ -8,9 +8,14 @@ class Task < ActiveRecord::Base
   scope :uncompleted, -> { where(completed: false) }
 
   def next_step
-    if children.size > 0 then
-      return children.last.next_step
+    next_child = last_uncompleted_child
+    unless next_child.nil? then
+      return next_child.next_step
     end
     return self
+  end
+
+  def last_uncompleted_child
+    children.reverse_each.find { |child| child.completed == false }
   end
 end
