@@ -1,5 +1,4 @@
 JustOneThing::Application.routes.draw do
-  devise_for :users
   get "home/index"
   get "welcome/index"
   # The priority is based upon order of creation: first created -> highest priority.
@@ -23,6 +22,9 @@ JustOneThing::Application.routes.draw do
 
   post 'tasks/:id/complete' => 'tasks#complete', as: :complete
   post 'tasks/:id/create_child' => 'tasks#create_child', as: :create_child
+
+  devise_for :users, :path_names => {:sign_in => "login", :sign_out => "logout"}, :path => "d"
+  resources :users
 
   # Example resource route with options:
   #   resources :products do
