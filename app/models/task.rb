@@ -4,7 +4,6 @@ class Task < ActiveRecord::Base
 
   validates :title, presence: true
 
-  # scope :without_children, joins("left join tasks as children on children.parent_id = tasks.id").where("children.parent_id is null")
   scope :without_parent, -> { where(parent_id: nil) }
   scope :uncompleted, -> { where(completed: false) }
 
