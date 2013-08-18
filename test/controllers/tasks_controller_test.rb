@@ -4,7 +4,7 @@ class TasksControllerTest < ActionController::TestCase
   include Devise::TestHelpers
 
   def setup
-    sign_in :user, users(:regular_user)
+    sign_in users(:regular_user)
   end
 
   test "index should get the full list of tasks" do
