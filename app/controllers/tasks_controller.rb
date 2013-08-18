@@ -23,8 +23,9 @@ class TasksController < ApplicationController
   end
 
   def random
-    tasks = Task.without_children.where(:completed => false)
-    @task = tasks.sample
+    top_level_tasks = Task.uncompleted.without_parent
+    @chosen_task = top_level_tasks.sample
+    @task = @chosen_task
   end
 
   def complete

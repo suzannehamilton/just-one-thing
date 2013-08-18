@@ -25,6 +25,40 @@ class TaskTest < ActiveSupport::TestCase
 
   test "task has no children by default" do
     task = Task.new
-    assert task.children.size == 0
+    assert_equal 0, task.children.size
   end
+
+  test "without_parent should return top-level tasks" do
+    tasks_without_parents = Task.without_parent
+    assert_equal 2, tasks_without_parents.size
+  end
+
+  test "uncompleted should return uncompleted tasks" do
+    uncompleted_tasks = Task.uncompleted
+    assert_equal 2, uncompleted_tasks.size
+  end
+
+  test "next step of a task with no children returns itself" do
+    task = Task.new
+    next_step = task.next_step
+    assert_equal task, next_step
+  end
+
+  test "next step of a task with a single child returns the child" do
+    task = Task.new
+    task.title = "Parent title"
+    child = Task.new
+    child.title = "Child title"
+    child.parent = task
+
+    task.save
+    child.save
+
+    assert_equal child, task.next_step
+  end
+
+  private
+    def link_parent_and_child parent, child
+
+    end
 end
