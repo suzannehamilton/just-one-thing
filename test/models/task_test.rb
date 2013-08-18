@@ -59,7 +59,8 @@ class TaskTest < ActiveSupport::TestCase
   def create_task_with_children number_of_children
     task = Task.new
     task.title = "Title"
-
+    task.save
+    
     for n in 0..number_of_children do
       child = Task.new
       child.title = "Child title"
@@ -67,7 +68,6 @@ class TaskTest < ActiveSupport::TestCase
       child.save
     end
 
-    task.save
     return task
   end
 end
