@@ -9,7 +9,7 @@ class Task < ActiveRecord::Base
 
   def next_step
     if children.size > 0 then
-      return children.last
+      return children.last.next_step
     end
     return self
   end

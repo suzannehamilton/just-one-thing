@@ -59,16 +59,24 @@ class TaskTest < ActiveSupport::TestCase
     assert_equal second_child, task.next_step
   end
 
+  test "next step of task with child hierarchy returns last child" do
+    task = create_task
+    child = create_child task
+    grandchild = create_child child
+
+    assert_equal grandchild, task.next_step
+  end
+
   def create_task
     task = Task.new
-    task.title = "Test title"
+    task.title = "Test task"
     task.save
     return task
   end
 
   def create_child parent
     child = Task.new
-    child.title = "Child title"
+    child.title = "Child of #{parent.title}"
     child.parent = parent
     child.save
     return child
