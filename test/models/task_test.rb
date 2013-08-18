@@ -56,9 +56,4 @@ class TaskTest < ActiveSupport::TestCase
 
     assert_equal child, task.next_step
   end
-
-  private
-    def link_parent_and_child parent, child
-
-    end
 end
