@@ -52,9 +52,11 @@ class TaskTest < ActiveSupport::TestCase
   end
 
   test "next step with multiple children returns the last child" do
-    task = create_task_with_children 3
+    task = create_task
+    first_child = create_completed_child task
+    second_child = create_child task
 
-    assert_equal task.children.last, task.next_step
+    assert_equal second_child, task.next_step
   end
 
   def create_task
@@ -72,18 +74,8 @@ class TaskTest < ActiveSupport::TestCase
     return child
   end
 
-  def create_task_with_children number_of_children
-    task = Task.new
-    task.title = "Title"
-    task.save
-    
-    for n in 0..number_of_children do
-      child = Task.new
-      child.title = "Child title"
-      child.parent = task
-      child.save
-    end
-
-    return task
+  def create_completed_child parent
+    child = create_child parent
+    child.completed = true
   end
 end
