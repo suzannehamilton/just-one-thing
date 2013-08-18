@@ -55,6 +55,7 @@ class TasksControllerTest < ActionController::TestCase
       task = assigns(:task)
       assert_not_nil task, "Task is nil"
       refute task.completed, "Task '#{task.title}' with id #{task.id} was loaded even though it is completed"
+      assert_nil task.last_uncompleted_child, "Task '#{task.title}' with id #{task.id} was loaded even though it has uncompleted children"
     end
   end
 

@@ -25,7 +25,7 @@ class TasksController < ApplicationController
   def random
     top_level_tasks = Task.uncompleted.without_parent
     @chosen_task = top_level_tasks.sample
-    @task = @chosen_task
+    @task = @chosen_task.next_step
   end
 
   def complete
