@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>JustOneThing</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<div class="container-fluid">
+<% content_for :content do %>
   <div class="row-fluid">
     <div class="span2">
       <ul class="nav nav-tabs nav-stacked">
@@ -27,16 +17,13 @@
           </div>
         <% end %>
       <% end %>
-
-      <% if user_signed_in? %>
-        <% #link_to "My Profile", user_root_path%>
-        <%= link_to('Logout', destroy_user_session_path, :method=>'delete') %>  
-      <%end%>
-
-      <%= yield %>
+      
+      <%= content_for?(:task_content) ? yield(:task_content) : yield %>
     </div>
   </div>
-</div>
+  
+<% end %>
 
-</body>
-</html>
+
+
+<%= render template: "layouts/application" %>
