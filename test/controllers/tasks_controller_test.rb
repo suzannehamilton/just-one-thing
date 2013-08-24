@@ -91,7 +91,7 @@ class TasksControllerTest < ActionController::TestCase
 
     post :complete, id: task.id
 
-    assert_redirected_to :controller => "welcome", :action => "index", :notice => "Task completed"
+    assert_redirected_to :controller => "tasks", :action => "index", :notice => "Task completed"
   end
 
   private

@@ -37,7 +37,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.update_attributes(:completed => true)
 
-    redirect_to controller: :welcome, :notice => "Task completed"
+    redirect_to action: :index, :notice => "Task completed"
   end
 
   private
