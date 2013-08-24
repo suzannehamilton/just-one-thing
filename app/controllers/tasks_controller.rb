@@ -20,7 +20,7 @@ class TasksController < ApplicationController
     redirect_to action: :new, :notice => "New child task created"
   end
 
-  def index
+  def all
     @tasks = Task.all.select {|t| t.parent_id == nil }
   end
 

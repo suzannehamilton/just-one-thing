@@ -7,14 +7,14 @@ class TasksControllerTest < ActionController::TestCase
     sign_in users(:regular_user)
   end
 
-  test "index should get the full list of tasks" do
-    get :index
+  test "all list should get the full list of tasks" do
+    get :all
     assert_response :success
     assert_not_nil assigns(:tasks)
   end
 
-  test "index should get sub-tasks under tasks" do
-    get :index
+  test "all list should get sub-tasks under tasks" do
+    get :all
 
     listed_tasks = assigns(:tasks)    
     assert listed_tasks.include?(tasks(:parent))

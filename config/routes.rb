@@ -17,6 +17,7 @@ JustOneThing::Application.routes.draw do
   resources :tasks do
     collection do
       get 'random'
+      get 'all'
     end
   end
 
