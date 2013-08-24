@@ -1,3 +1,4 @@
-<h1>List of tasks</h1>
+<h1>Just one thing</h1>
+<p>A task app for chronic procrastinators</p>
 
-<%= render 'tasks', :tasks => @tasks %>
+<%= link_to "Give me a task", {controller: "tasks", action: "random"}, class: "btn btn-primary" %>

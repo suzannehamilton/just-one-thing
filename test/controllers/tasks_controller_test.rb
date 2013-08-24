@@ -7,6 +7,11 @@ class TasksControllerTest < ActionController::TestCase
     sign_in users(:regular_user)
   end
 
+  test "should get index" do
+    get :index
+    assert_response :success
+  end
+
   test "all list should get the full list of tasks" do
     get :all
     assert_response :success
