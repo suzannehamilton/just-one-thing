@@ -24,7 +24,6 @@ JustOneThing::Application.routes.draw do
   post 'tasks/:id/create_child' => 'tasks#create_child', as: :create_child
 
   devise_for :users, :path_names => {:sign_in => "login", :sign_out => "logout"}, :path => "d"
-  resources :users
 
   # Example resource route with options:
   #   resources :products do
