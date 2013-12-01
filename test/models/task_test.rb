@@ -2,18 +2,24 @@ require 'test_helper'
 
 class TaskTest < ActiveSupport::TestCase
   test "should not save task without title" do
+    user = User.where(:email=>"foo@bar.com").first
     task = Task.new
+    task.user_id = user.id
     refute task.save, "Saved the task without a title"
   end
 
   test "should save task with a title" do
+    user = User.where(:email=>"foo@bar.com").first
     task = Task.new
+    task.user_id = user.id
     task.title = "Test title"
     assert task.save, "Did not save task"
   end
 
   test "task should be uncompleted by default" do
+    user = User.where(:email=>"foo@bar.com").first
     task = Task.new
+    task.user_id = user.id
     task.save
     refute task.completed
   end
@@ -84,23 +90,29 @@ class TaskTest < ActiveSupport::TestCase
   end
 
   def create_task
+    user = User.where(:email=>"foo@bar.com").first
     task = Task.new
     task.title = "Test task"
+    task.user_id = user.id
     task.save
     return task
   end
 
   def create_child parent
+    user = User.where(:email=>"foo@bar.com").first
     child = Task.new
     child.title = "Child of #{parent.title}"
     child.parent = parent
+    child.user_id = user.id
     child.save
     return child
   end
 
   def create_completed_child parent
+    user = User.where(:email=>"foo@bar.com").first
     child = create_child parent
     child.completed = true
+    child.user_id = user.id
     child.save
     return child
   end

@@ -21,7 +21,7 @@ class TasksControllerTest < ActionController::TestCase
   test "all list should get sub-tasks under tasks" do
     get :all
 
-    listed_tasks = assigns(:tasks)    
+    listed_tasks = assigns(:tasks)
     assert listed_tasks.include?(tasks(:parent))
     assert listed_tasks.include?(tasks(:completedTask))
 
@@ -39,23 +39,23 @@ class TasksControllerTest < ActionController::TestCase
 
   test "create should create a new task" do
     assert_difference('Task.count') do
-      post :create, task: {title: 'Test title'}
+      post :create, task: {title: 'Test title', user_id: User.where(:email=>"foo@bar.com").first.id}
     end
   end
 
   test "create should redirect to page for creating a new task" do
-    post :create, task: {title: 'Test title'}
+    post :create, task: {title: 'Test title', user_id: User.where(:email=>"foo@bar.com").first.id}
     assert_redirected_to :controller => "tasks", :action => "new", :notice => "New task created"
   end
 
   test "create_child should create a new sub-task" do
     assert_difference('Task.count') do
-      post :create_child, child_task: {title: 'Test title'}, id: tasks(:parent).id
+      post :create_child, child_task: {title: 'Test title', user_id: User.where(:email=>"foo@bar.com").first.id}, id: tasks(:parent).id
     end
   end
 
   test "create_child should redirect to new task page" do
-    post :create_child, child_task: {title: 'Test title'}, id: tasks(:parent).id
+    post :create_child, child_task: {title: 'Test title',  user_id: User.where(:email=>"foo@bar.com").first.id}, id: tasks(:parent).id
     assert_redirected_to :controller => "tasks", :action => "new", :notice => "New child task created"
   end
 
@@ -96,9 +96,12 @@ class TasksControllerTest < ActionController::TestCase
 
   private
     def create_new_task
+      user = User.where(:email=>"foo@bar.com").first
+
       task = Task.new
       task.title = "Task to be completed"
+      task.user_id = user.id
       task.save
       task
-    end 
+    end
 end
