@@ -1,26 +1,19 @@
 require 'test_helper'
+require 'task_builder'
 
 class TaskTest < ActiveSupport::TestCase
   test "should not save task without title" do
-    user = User.where(:email=>"foo@bar.com").first
-    task = Task.new
-    task.user_id = user.id
+    task = TaskBuilder.new.build
     refute task.save, "Saved the task without a title"
   end
 
   test "should save task with a title" do
-    user = User.where(:email=>"foo@bar.com").first
-    task = Task.new
-    task.user_id = user.id
-    task.title = "Test title"
+    task = TaskBuilder.new.with_title("Test title").build
     assert task.save, "Did not save task"
   end
 
   test "task should be uncompleted by default" do
-    user = User.where(:email=>"foo@bar.com").first
     task = Task.new
-    task.user_id = user.id
-    task.save
     refute task.completed
   end
 
@@ -51,69 +44,41 @@ class TaskTest < ActiveSupport::TestCase
   end
 
   test "next step of a task with a single child returns the child" do
-    task = create_task
-    child = create_child task
+    task = TaskBuilder.new.with_default_title.build
+    child = TaskBuilder.new.with_default_title.with_parent(task).save
 
     assert_equal task.children.last, task.next_step
   end
 
   test "next step with multiple children returns the last child" do
-    task = create_task
-    first_child = create_completed_child task
-    second_child = create_child task
+    task = TaskBuilder.new.with_default_title.build
+    first_child = TaskBuilder.new.with_default_title.with_parent(task).completed.save
+    second_child = TaskBuilder.new.with_default_title.with_parent(task).save
 
     assert_equal second_child, task.next_step
   end
 
   test "next step of task with child hierarchy returns last child" do
-    task = create_task
-    child = create_child task
-    grandchild = create_child child
+    task = TaskBuilder.new.with_default_title.build
+    child = TaskBuilder.new.with_default_title.with_parent(task).save
+    grandchild = TaskBuilder.new.with_default_title.with_parent(child).save
 
     assert_equal grandchild, task.next_step
   end
 
   test "next step of task with child hierarchy returns last uncompleted child" do
-    task = create_task
-    child = create_child task
-    grandchild = create_completed_child child
+    task = TaskBuilder.new.with_default_title.build
+    child = TaskBuilder.new.with_default_title.with_parent(task).save
+    grandchild = TaskBuilder.new.with_default_title.with_parent(child).completed.save
 
     assert_equal child, task.next_step
   end
 
   test "last_uncompleted_child finds last child which is uncompleted" do
-    task = create_task
-    first_child = create_child task
-    second_child = create_completed_child task
+    task = TaskBuilder.new.with_default_title.build
+    first_child = TaskBuilder.new.with_default_title.with_parent(task).save
+    second_child = TaskBuilder.new.with_default_title.with_parent(task).completed.save
 
     assert_equal first_child, task.last_uncompleted_child
-  end
-
-  def create_task
-    user = User.where(:email=>"foo@bar.com").first
-    task = Task.new
-    task.title = "Test task"
-    task.user_id = user.id
-    task.save
-    return task
-  end
-
-  def create_child parent
-    user = User.where(:email=>"foo@bar.com").first
-    child = Task.new
-    child.title = "Child of #{parent.title}"
-    child.parent = parent
-    child.user_id = user.id
-    child.save
-    return child
-  end
-
-  def create_completed_child parent
-    user = User.where(:email=>"foo@bar.com").first
-    child = create_child parent
-    child.completed = true
-    child.user_id = user.id
-    child.save
-    return child
   end
 end
