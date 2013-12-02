@@ -97,7 +97,7 @@ class TasksControllerTest < ActionController::TestCase
 
   private
     def create_new_task
-      user = User.where(:email=>"foo@bar.com").first
+      user = users(:regular_user)
 
       task = Task.new
       task.title = "Task to be completed"
