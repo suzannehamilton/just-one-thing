@@ -71,7 +71,7 @@ class TasksControllerTest < ActionController::TestCase
     assert_redirected_to :controller => "tasks", :action => "new", :notice => "New child task created"
   end
 
-  test "random task fetches uncompleted task" do
+  test "random task fetches uncompleted task associated with current user" do
     for random_task in 0..100
       get :random
       assert_response :success
@@ -79,6 +79,7 @@ class TasksControllerTest < ActionController::TestCase
       assert_not_nil task, "Task is nil"
       refute task.completed, "Task '#{task.title}' with id #{task.id} was loaded even though it is completed"
       assert_nil task.last_uncompleted_child, "Task '#{task.title}' with id #{task.id} was loaded even though it has uncompleted children"
+      assert_equal users(:regular_user), task.user
     end
   end
 

@@ -30,7 +30,7 @@ class TasksController < ApplicationController
   end
 
   def random
-    top_level_tasks = Task.uncompleted.without_parent
+    top_level_tasks = Task.uncompleted.without_parent.select {|t| t.user_id == current_user.id}
     @chosen_task = top_level_tasks.sample
     @task = @chosen_task.next_step
   end
