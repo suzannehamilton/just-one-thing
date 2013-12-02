@@ -96,6 +96,12 @@ class TasksControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "random task redirects to success page when there are no incomplete tasks" do
+    sign_in users(:user_with_no_tasks)
+    get :random
+    assert_redirected_to :controller => "tasks", :action => "success", :notice => "All tasks completed"
+  end
+
   test "complete action marks task as complete" do
     task = TaskBuilder.new.with_default_title.with_user.save
 

@@ -31,8 +31,13 @@ class TasksController < ApplicationController
 
   def random
     top_level_tasks = Task.uncompleted.without_parent.select {|t| t.user_id == current_user.id}
-    @chosen_task = top_level_tasks.sample
-    @task = @chosen_task.next_step
+
+    if top_level_tasks.empty?
+      redirect_to action: :success, :notice => "All tasks completed"
+    else
+      @chosen_task = top_level_tasks.sample
+      @task = @chosen_task.next_step
+    end
   end
 
   def complete
@@ -40,6 +45,9 @@ class TasksController < ApplicationController
     @task.update_attributes(:completed => true)
 
     redirect_to action: :index, :notice => "Task completed"
+  end
+
+  def success
   end
 
   private

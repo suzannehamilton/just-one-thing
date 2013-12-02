@@ -1,6 +1,7 @@
 JustOneThing::Application.routes.draw do
   get "home/index"
   get "tasks/index" => 'tasks#index', as: :user_root
+  get "tasks/success" => 'tasks#success'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -51,7 +52,7 @@ JustOneThing::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'
