@@ -100,7 +100,7 @@ class TasksControllerTest < ActionController::TestCase
 
       task = Task.new
       task.title = "Task to be completed"
-      task.user_id = user.id
+      task.user = user
       task.save
       task
     end

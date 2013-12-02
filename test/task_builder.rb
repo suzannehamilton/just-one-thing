@@ -3,7 +3,7 @@ class TaskBuilder
     @task = Task.new
 
     user = User.where(:email=>"foo@bar.com").first
-    @task.user_id = user.id
+    @task.user = user
   end
 
   def with_title(title)

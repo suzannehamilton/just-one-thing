@@ -2,6 +2,8 @@ class Task < ActiveRecord::Base
   belongs_to :parent, class_name: 'Task'
   has_many :children, class_name: 'Task', foreign_key: 'parent_id'
 
+  belongs_to :user, class_name: 'User'
+
   validates :title, presence: true
 
   scope :without_parent, -> { where(parent_id: nil) }
