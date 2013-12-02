@@ -9,6 +9,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.user = current_user
     @task.save
     redirect_to action: :new, :notice => "New task created"
   end
@@ -16,6 +17,7 @@ class TasksController < ApplicationController
   def create_child
     @parent = Task.find(params[:id])
     @child = Task.new(child_task_params)
+    @child.user = current_user
     @child.parent_id = @parent.id
 
     @child.save
@@ -42,10 +44,10 @@ class TasksController < ApplicationController
 
   private
     def task_params
-      params.require(:task).permit(:title, :user_id)
+      params.require(:task).permit(:title)
     end
 
     def child_task_params
-      params.require(:child_task).permit(:title, :user_id)
+      params.require(:child_task).permit(:title)
     end
 end

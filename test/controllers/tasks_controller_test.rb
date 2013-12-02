@@ -38,25 +38,25 @@ class TasksControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "create should create a new task" do
+  test "create should create a new task associated with current user" do
     assert_difference('Task.count') do
-      post :create, task: {title: 'Test title', user_id: users(:regular_user).id}
+      post :create, task: {title: 'Test title'}
     end
   end
 
   test "create should redirect to page for creating a new task" do
-    post :create, task: {title: 'Test title', user_id: users(:regular_user).id}
+    post :create, task: {title: 'Test title'}
     assert_redirected_to :controller => "tasks", :action => "new", :notice => "New task created"
   end
 
   test "create_child should create a new sub-task" do
     assert_difference('Task.count') do
-      post :create_child, child_task: {title: 'Test title', user_id: users(:regular_user).id}, id: tasks(:parent).id
+      post :create_child, child_task: {title: 'Test title'}, id: tasks(:parent).id
     end
   end
 
   test "create_child should redirect to new task page" do
-    post :create_child, child_task: {title: 'Test title',  user_id: users(:regular_user).id}, id: tasks(:parent).id
+    post :create_child, child_task: {title: 'Test title'}, id: tasks(:parent).id
     assert_redirected_to :controller => "tasks", :action => "new", :notice => "New child task created"
   end
 
