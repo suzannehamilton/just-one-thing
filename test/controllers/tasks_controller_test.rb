@@ -12,10 +12,11 @@ class TasksControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "all list should get the full list of tasks" do
+  test "all list should get the full list of top-level tasks belonging to user" do
     get :all
     assert_response :success
     assert_not_nil assigns(:tasks)
+    assert_equal 2, assigns(:tasks).count
   end
 
   test "all list should get sub-tasks under tasks" do

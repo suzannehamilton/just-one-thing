@@ -1,19 +1,23 @@
 parent:
   title: Parent task
-  user_id: regular_user
+  user: regular_user
 
 subtask:
   title: Sub-task
   parent: parent
-  user_id: regular_user
+  user: regular_user
 
 completedTask:
   title: Completed parent task
   completed: true
-  user_id: regular_user
+  user: regular_user
 
 completedSubTask:
   title: Completed sub-task
   completed: true
   parent: parent
-  user_id: regular_user
+  user: regular_user
+
+taskBelongingToOtherUser:
+  title: Task belonging to other user
+  user: other_user

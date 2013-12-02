@@ -29,12 +29,12 @@ class TaskTest < ActiveSupport::TestCase
 
   test "without_parent should return top-level tasks" do
     tasks_without_parents = Task.without_parent
-    assert_equal 2, tasks_without_parents.size
+    assert_equal 3, tasks_without_parents.size
   end
 
   test "uncompleted should return uncompleted tasks" do
     uncompleted_tasks = Task.uncompleted
-    assert_equal 2, uncompleted_tasks.size
+    assert_equal 3, uncompleted_tasks.size
   end
 
   test "next step of a task with no children returns itself" do

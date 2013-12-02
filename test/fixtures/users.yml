@@ -1,2 +1,5 @@
 regular_user:
   email: foo@bar.com
+
+other_user:
+  email: other@bar.com
