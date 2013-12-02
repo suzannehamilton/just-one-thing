@@ -24,7 +24,7 @@ class TasksController < ApplicationController
   end
 
   def all
-    @tasks = Task.all.select {|t| t.parent_id == nil && t.user_id == current_user.id}
+    @tasks = Task.without_parent.select {|t| t.user_id == current_user.id}
   end
 
   def random
