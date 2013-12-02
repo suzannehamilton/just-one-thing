@@ -3,3 +3,6 @@ regular_user:
 
 other_user:
   email: other@bar.com
+
+user_with_no_tasks:
+  email: notasks@test.com

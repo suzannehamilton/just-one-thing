@@ -34,6 +34,12 @@ class TasksControllerTest < ActionController::TestCase
     assert_equal tasks(:completedTask).children.size, completedTask.children.size
   end
 
+  test "all list shows no tasks if user has no tasks" do
+    sign_in users(:user_with_no_tasks)
+    get :all
+    assert_equal [], assigns(:tasks)
+  end
+
   test "new should be a valid page" do
     get :new
     assert_response :success
