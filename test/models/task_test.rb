@@ -3,13 +3,18 @@ require 'task_builder'
 
 class TaskTest < ActiveSupport::TestCase
   test "should not save task without title" do
-    task = TaskBuilder.new.build
+    task = TaskBuilder.new.with_user.build
     refute task.save, "Saved the task without a title"
   end
 
   test "should save valid task" do
     task = TaskBuilder.new.with_title("Test title").with_user.build
     assert task.save, "Did not save task"
+  end
+
+  test "should not save task without user" do
+    task = TaskBuilder.new.with_default_title.build
+    refute task.save, "Saved the task without a user"
   end
 
   test "task should be uncompleted by default" do

@@ -5,6 +5,7 @@ class Task < ActiveRecord::Base
   belongs_to :user, class_name: 'User'
 
   validates :title, presence: true
+  validates :user, presence: true
 
   scope :without_parent, -> { where(parent_id: nil) }
   scope :uncompleted, -> { where(completed: false) }
