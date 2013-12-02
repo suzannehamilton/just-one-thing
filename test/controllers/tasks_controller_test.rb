@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'task_builder'
 
 class TasksControllerTest < ActionController::TestCase
   include Devise::TestHelpers
@@ -79,7 +80,7 @@ class TasksControllerTest < ActionController::TestCase
   end
 
   test "complete action marks task as complete" do
-    task = create_new_task
+    task = TaskBuilder.new.with_default_title.with_user.save
 
     post :complete, id: task.id
     task.reload
@@ -88,21 +89,10 @@ class TasksControllerTest < ActionController::TestCase
   end
 
   test "complete action redirects to home page" do
-    task = create_new_task
+    task = TaskBuilder.new.with_default_title.with_user.save
 
     post :complete, id: task.id
 
     assert_redirected_to :controller => "tasks", :action => "index", :notice => "Task completed"
   end
-
-  private
-    def create_new_task
-      user = users(:regular_user)
-
-      task = Task.new
-      task.title = "Task to be completed"
-      task.user = user
-      task.save
-      task
-    end
 end
