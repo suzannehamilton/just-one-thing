@@ -40,23 +40,23 @@ class TasksControllerTest < ActionController::TestCase
 
   test "create should create a new task" do
     assert_difference('Task.count') do
-      post :create, task: {title: 'Test title', user_id: User.where(:email=>"foo@bar.com").first.id}
+      post :create, task: {title: 'Test title', user_id: users(:regular_user).id}
     end
   end
 
   test "create should redirect to page for creating a new task" do
-    post :create, task: {title: 'Test title', user_id: User.where(:email=>"foo@bar.com").first.id}
+    post :create, task: {title: 'Test title', user_id: users(:regular_user).id}
     assert_redirected_to :controller => "tasks", :action => "new", :notice => "New task created"
   end
 
   test "create_child should create a new sub-task" do
     assert_difference('Task.count') do
-      post :create_child, child_task: {title: 'Test title', user_id: User.where(:email=>"foo@bar.com").first.id}, id: tasks(:parent).id
+      post :create_child, child_task: {title: 'Test title', user_id: users(:regular_user).id}, id: tasks(:parent).id
     end
   end
 
   test "create_child should redirect to new task page" do
-    post :create_child, child_task: {title: 'Test title',  user_id: User.where(:email=>"foo@bar.com").first.id}, id: tasks(:parent).id
+    post :create_child, child_task: {title: 'Test title',  user_id: users(:regular_user).id}, id: tasks(:parent).id
     assert_redirected_to :controller => "tasks", :action => "new", :notice => "New child task created"
   end
 
